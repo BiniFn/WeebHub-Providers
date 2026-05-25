@@ -374,13 +374,14 @@
   {
     "id": "snow-effect",
     "name": "WeebHub Snow effect",
+    "version": "1.1.2",
     "description": "A simple plugin to display snow effects.",
     "manifestURI": "https://raw.githubusercontent.com/BiniFn/WeebHub-Providers/refs/heads/main/src/plugins/effects/manifest.json",
     "author": "Pal",
     "type": "plugin",
     "language": "javascript",
     "lang": "EN",
-    "icon": "https://raw.githubusercontent.com/BiniFn/WeebHub-Providers/refs/heads/main/public/WeebHub-xmas.png",
+    "icon": "https://raw.githubusercontent.com/BiniFn/WeebHub-Providers/refs/heads/main/public/WeebHub-xmas.jpg",
     "website": ""
   },
   {

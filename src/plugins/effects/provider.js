@@ -13,8 +13,8 @@ function init() {
     let isHiddenMode = false; // Tracks if we are in Reader OR Video Player
     let activeSnowflakes = 0;
     const MAX_SNOWFLAKES = 50;
-    const XMAS_LOGO = 'https://raw.githubusercontent.com/Pal-droid/Seanime-Providers/refs/heads/main/public/seanime-xmas.png';
-    const DEFAULT_LOGO = '/seanime-logo.png';
+    const XMAS_LOGO = 'https://raw.githubusercontent.com/BiniFn/WeebHub-Providers/refs/heads/main/public/WeebHub-xmas.jpg';
+    const DEFAULT_LOGO = '/logo.png';
 
     try {
         const saved = localStorage.getItem('seanime-snow-enabled');
@@ -29,16 +29,16 @@ function init() {
 
     // 2. Logo Handling Logic
     function updateLogos() {
-        const logos = document.querySelectorAll('img[src*="seanime-logo.png"], img[alt="Loading..."], img[alt="logo"]');
+        const logos = document.querySelectorAll('img[src*="logo.png"], img[src*="seanime-logo.png"], img[alt="Loading..."], img[alt="logo"]');
         
         logos.forEach(img => {
             // Skip tray icons
             if (img.hasAttribute('data-plugin-tray-icon-image')) return;
 
             if (snowEnabled) {
-                if (!img.src.includes('seanime-xmas.png')) img.src = XMAS_LOGO;
+                if (!img.src.includes('WeebHub-xmas.jpg')) img.src = XMAS_LOGO;
             } else {
-                if (img.src.includes('seanime-xmas.png')) img.src = DEFAULT_LOGO;
+                if (img.src.includes('WeebHub-xmas.jpg') || img.src.includes('seanime-xmas.png')) img.src = DEFAULT_LOGO;
             }
         });
     }
