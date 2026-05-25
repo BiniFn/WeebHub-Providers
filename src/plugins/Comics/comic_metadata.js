@@ -133,9 +133,9 @@
 
     // Expose the functions to the global window object
     window.ComicMetadataQueries = {
-        getTrendingComics,
-        searchComics,
-        getComicDetails
+        getTrendingLightComics: getTrendingComics,
+        searchAnilistLightComics: searchComics,
+        getAnilistLightComicDetails: getComicDetails
     };
 
     console.log('[comic-plugin] ComicMetadataQueries loaded.');
