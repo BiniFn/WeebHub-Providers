@@ -1,0 +1,14 @@
+{
+  "id": "oppai-stream-online-streaming",
+  "name": "EN | Oppai Stream (18+)",
+  "version": "1.0.3",
+  "manifestURI": "https://raw.githubusercontent.com/BiniFn/WeebHub-Providers/main/src/anime/oppai-stream/manifest.json",
+  "language": "typescript",
+  "type": "onlinestream-provider",
+  "description": "Provides seamless integration with the oppai.stream catalog for online streaming within Seanime, enabling users to watch available titles directly from the platform.",
+  "author": "TropicalFrog3",
+  "icon": "https://raw.githubusercontent.com/BiniFn/WeebHub-Providers/main/src/anime/oppai-stream/favicon.png",
+  "website": "",
+  "lang": "en",
+  "payloadURI": "https://raw.githubusercontent.com/BiniFn/WeebHub-Providers/main/src/anime/oppai-stream/provider.ts"
+}

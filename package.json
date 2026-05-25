@@ -1,0 +1,25 @@
+{
+  "name": "weebhub_providers_target",
+  "version": "1.0.0",
+  "description": "<p align=\"center\">   <img src=\"https://raw.githubusercontent.com/BiniFn/WeebHub/main/docs/weebhub-logo.png\" width=\"80px\"/> </p>",
+  "main": "parse_readall.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BiniFn/WeebHub-Providers.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/BiniFn/WeebHub-Providers/issues"
+  },
+  "homepage": "https://github.com/BiniFn/WeebHub-Providers#readme",
+  "devDependencies": {
+    "@types/node": "^25.9.1",
+    "typescript": "^6.0.3"
+  }
+}

@@ -103,11 +103,16 @@
     }
 
     function getSimilarity(s1, s2) {
-        let longer = s1.toLowerCase();
-        let shorter = s2.toLowerCase();
-        if (s1.length < s2.length) { longer = s2.toLowerCase(); shorter = s1.toLowerCase(); }
+        let longer = s1.toLowerCase().trim();
+        let shorter = s2.toLowerCase().trim();
+        if (s1.length < s2.length) { longer = s2.toLowerCase().trim(); shorter = s1.toLowerCase().trim(); }
         let longerLength = longer.length;
         if (longerLength == 0) { return 1.0; }
+        
+        if (longer.startsWith(shorter) || longer.includes(shorter)) {
+            return Math.max(0.85, (longerLength - getLevenshteinDistance(longer, shorter)) / parseFloat(longerLength));
+        }
+
         const distance = getLevenshteinDistance(longer, shorter);
         return (longerLength - distance) / parseFloat(longerLength);
     }
@@ -173,7 +178,7 @@
             return results;
         } catch (err) {
             console.error("[novel-plugin] NovelFire Search Error:", err);
-            return [];proxyrl()
+            return [];
         }
     }
 

@@ -1,0 +1,14 @@
+{
+  "id": "french-anime-online-streaming",
+  "name": "FR | French Anime",
+  "version": "1.0.4",
+  "manifestURI": "https://raw.githubusercontent.com/BiniFn/WeebHub-Providers/main/src/anime/french-anime/manifest.json",
+  "language": "typescript",
+  "type": "onlinestream-provider",
+  "description": "French Anime est une extension Seanime en français qui permet de regarder des anime dans le catalogue du site french-anime.com.",
+  "author": "TropicalFrog3",
+  "icon": "https://raw.githubusercontent.com/BiniFn/WeebHub-Providers/main/src/anime/french-anime/favicon.png",
+  "website": "",
+  "lang": "fr",
+  "payloadURI": "https://raw.githubusercontent.com/BiniFn/WeebHub-Providers/main/src/anime/french-anime/provider.ts"
+}

@@ -1,0 +1,14 @@
+{
+  "id": "watchhentai-online-streaming",
+  "name": "EN | watchhentai.net (18+)",
+  "version": "1.0.1",
+  "manifestURI": "https://raw.githubusercontent.com/BiniFn/WeebHub-Providers/main/src/anime/watchhentai/manifest.json",
+  "language": "typescript",
+  "type": "onlinestream-provider",
+  "description": "Provides seamless integration with the watchhentai.net catalog for online streaming within Seanime.",
+  "author": "TropicalFrog3",
+  "icon": "https://raw.githubusercontent.com/BiniFn/WeebHub-Providers/main/src/anime/watchhentai/favicon.png",
+  "website": "https://watchhentai.net",
+  "lang": "en",
+  "payloadURI": "https://raw.githubusercontent.com/BiniFn/WeebHub-Providers/main/src/anime/watchhentai/provider.ts"
+}

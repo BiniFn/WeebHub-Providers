@@ -1,0 +1,14 @@
+{
+  "id": "anime-sama-vip-online-streaming",
+  "name": "FR | Anime-Sama VIP",
+  "version": "1.0.1",
+  "manifestURI": "https://raw.githubusercontent.com/BiniFn/WeebHub-Providers/main/src/anime/anime-sama-vip/manifest.json",
+  "language": "typescript",
+  "type": "onlinestream-provider",
+  "description": "Extension pour Anime-Sama VIP (v11.anime-sama.vip).",
+  "author": "TropicalFrog3",
+  "icon": "https://raw.githubusercontent.com/BiniFn/WeebHub-Providers/main/src/anime/anime-sama-vip/favicon.png",
+  "website": "https://v11.anime-sama.vip/",
+  "lang": "fr",
+  "payloadURI": "https://raw.githubusercontent.com/BiniFn/WeebHub-Providers/main/src/anime/anime-sama-vip/provider.ts"
+}

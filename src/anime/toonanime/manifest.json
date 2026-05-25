@@ -1,0 +1,14 @@
+{
+  "id": "toonanime-online-streaming",
+  "name": "FR | ToonAnime",
+  "version": "1.1.4",
+  "manifestURI": "https://raw.githubusercontent.com/BiniFn/WeebHub-Providers/main/src/anime/toonanime/manifest.json",
+  "language": "typescript",
+  "type": "onlinestream-provider",
+  "description": "ToonAnime est une extension Seanime en français pour regarder des anime doublés (VF) et sous-titrés (VOSTFR) depuis ToonAnime.biz, avec prise en charge multi‑serveurs et intégration de riches métadonnées.",
+  "author": "TropicalFrog3",
+  "icon": "https://raw.githubusercontent.com/BiniFn/WeebHub-Providers/main/src/anime/toonanime/favicon.png",
+  "website": "",
+  "lang": "fr",
+  "payloadURI": "https://raw.githubusercontent.com/BiniFn/WeebHub-Providers/main/src/anime/toonanime/provider.ts"
+}

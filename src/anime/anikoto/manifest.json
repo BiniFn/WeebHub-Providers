@@ -1,0 +1,14 @@
+{
+  "id": "anikoto-online-streaming",
+  "name": "EN | Anikoto",
+  "version": "1.0.2",
+  "manifestURI": "https://raw.githubusercontent.com/BiniFn/WeebHub-Providers/main/src/anime/anikoto/manifest.json",
+  "language": "typescript",
+  "type": "onlinestream-provider",
+  "description": "Anikoto is a Seanime extension that allows you to stream anime in English Sub & Dub from anikoto.cz.",
+  "author": "TropicalFrog3",
+  "icon": "https://raw.githubusercontent.com/BiniFn/WeebHub-Providers/main/src/anime/anikoto/favicon.png",
+  "website": "",
+  "lang": "en",
+  "payloadURI": "https://raw.githubusercontent.com/BiniFn/WeebHub-Providers/main/src/anime/anikoto/provider.ts"
+}

@@ -440,6 +440,8 @@ function init() {
                                <button class="novel-plugin-tab" id="novel-plugin-tab-discover" data-page="discover">Discover</button>
                                <button class="novel-plugin-tab" id="novel-plugin-tab-library" data-page="library">Library</button>
                                <button class="novel-plugin-tab" id="novel-plugin-tab-search" data-page="search">Search</button>
+                               <input type="file" id="novel-plugin-global-epub-input" accept=".epub,.pdf" style="display: none;">
+                               <button class="novel-plugin-tab" id="novel-plugin-tab-upload">Upload EPUB/PDF</button>
                            </div>
                         </div>
                         <div id="\${CONFIG.ids.wrapper}"></div>
@@ -1570,6 +1572,43 @@ function init() {
                     document.getElementById('novel-plugin-tab-discover').onclick = () => { State.activeTab = "discover"; State.page = "discover"; renderUI(); };
                     document.getElementById('novel-plugin-tab-library').onclick = () => { State.activeTab = "library"; State.page = "library"; renderUI(); };
                     document.getElementById('novel-plugin-tab-search').onclick = () => { State.activeTab = "search"; State.page = "search"; renderUI(); };
+                    
+                    const globalUploadBtn = document.getElementById('novel-plugin-tab-upload');
+                    const globalUploadInput = document.getElementById('novel-plugin-global-epub-input');
+                    if (globalUploadBtn && globalUploadInput) {
+                        globalUploadBtn.onclick = () => globalUploadInput.click();
+                        globalUploadInput.onchange = async (e) => {
+                            const file = e.target.files[0];
+                            if (!file) return;
+                            
+                            globalUploadBtn.textContent = 'Loading...';
+                            
+                            try {
+                                if (!window.LocalEpubAPI) throw new Error("Local reader API not loaded");
+                                const result = await window.LocalEpubAPI.loadEpub(file);
+                                
+                                State.currentSourceId = 'local-epub';
+                                State.currentNovel = {
+                                    id: result.id,
+                                    title: { romaji: result.title, english: result.title },
+                                    coverImage: { extraLarge: '', color: '#8A2BE2' }
+                                };
+                                
+                                const source = State.sourceRegistry.get('local-epub');
+                                if (source) {
+                                    State.currentChapters = await source.getChapters(result.id);
+                                }
+                                
+                                State.page = 'chapters';
+                                renderUI();
+                            } catch (err) {
+                                alert('Failed to load file: ' + err.message);
+                            } finally {
+                                globalUploadBtn.textContent = 'Upload EPUB/PDF';
+                                globalUploadInput.value = '';
+                            }
+                        };
+                    }
                     document.getElementById(CONFIG.ids.closeBtn).onclick = cleanup;
 
                     // REGISTER GLOBAL ESC (Use Bubbling on window to catch after stopPropagation)

@@ -1,0 +1,14 @@
+{
+  "id": "anime-sama-online-streaming",
+  "name": "FR | Anime Sama",
+  "version": "3.0.3",
+  "manifestURI": "https://raw.githubusercontent.com/BiniFn/WeebHub-Providers/main/src/anime/anime-sama/manifest.json",
+  "language": "typescript",
+  "type": "onlinestream-provider",
+  "description": "Anime Sama est une extension Seanime en français qui permet de regarder des anime dans le catalogue du site anime-sama.com.",
+  "author": "TropicalFrog3",
+  "icon": "https://raw.githubusercontent.com/BiniFn/WeebHub-Providers/main/src/anime/anime-sama/favicon.png",
+  "website": "",
+  "lang": "fr",
+  "payloadURI": "https://raw.githubusercontent.com/BiniFn/WeebHub-Providers/main/src/anime/anime-sama/provider.ts"
+}

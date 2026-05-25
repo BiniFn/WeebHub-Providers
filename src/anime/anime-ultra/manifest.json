@@ -1,0 +1,14 @@
+{
+  "id": "anime-ultra-online-streaming",
+  "name": "FR | Anime Ultra",
+  "version": "1.0.5",
+  "manifestURI": "https://raw.githubusercontent.com/BiniFn/WeebHub-Providers/main/src/anime/anime-ultra/manifest.json",
+  "language": "typescript",
+  "type": "onlinestream-provider",
+  "description": "Anime Ultra est une extension Seanime en français qui permet de regarder des anime dans le catalogue du site animesultra.org.",
+  "author": "TropicalFrog3",
+  "icon": "https://raw.githubusercontent.com/BiniFn/WeebHub-Providers/main/src/anime/anime-ultra/favicon.png",
+  "website": "",
+  "lang": "fr",
+  "payloadURI": "https://raw.githubusercontent.com/BiniFn/WeebHub-Providers/main/src/anime/anime-ultra/provider.ts"
+}
