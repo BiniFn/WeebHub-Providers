@@ -42,7 +42,8 @@ function init() {
                 assets: {
                     css: "https://raw.githubusercontent.com/BiniFn/WeebHub-Providers/refs/heads/main/src/plugins/Comics/styles.css",
                     queries: "https://raw.githubusercontent.com/BiniFn/WeebHub-Providers/refs/heads/main/src/plugins/Comics/anilist.js",
-                    scraperExtra: "https://raw.githubusercontent.com/BiniFn/WeebHub-Providers/refs/heads/main/src/plugins/Comics/providers/comicextra.js"
+                    scraperExtra: "https://raw.githubusercontent.com/BiniFn/WeebHub-Providers/refs/heads/main/src/plugins/Comics/providers/comicextra.js",
+                    scraperBatcave: "https://raw.githubusercontent.com/BiniFn/WeebHub-Providers/refs/heads/main/src/plugins/Comics/providers/batcave.js"
                 },
                 genres: [
                     "Action", "Adventure", "Comedy", "Drama", "Ecchi", "Fantasy", "Hentai",
@@ -1493,7 +1494,8 @@ function init() {
                     await Promise.all([
                         loadAsset(CONFIG.assets.css, CONFIG.ids.style, 'style', 'CSS'),
                         loadAsset(CONFIG.assets.queries, CONFIG.ids.scriptQuery, 'script', 'Queries'),
-                        loadAsset(CONFIG.assets.scraperExtra, 'comic-plugin-scrapers-comicextra', 'script', 'ComicExtra')
+                        loadAsset(CONFIG.assets.scraperExtra, 'comic-plugin-scrapers-comicextra', 'script', 'ComicExtra'),
+                        loadAsset(CONFIG.assets.scraperBatcave, 'comic-plugin-scrapers-batcave', 'script', 'Batcave')
                     ]);
                     const backdrop = document.createElement("div");
                     backdrop.id = CONFIG.ids.backdrop;
@@ -1522,7 +1524,7 @@ function init() {
                 // REMOVE GLOBAL ESC
                 window.removeEventListener('keydown', handleGlobalEsc);
 
-                [CONFIG.ids.backdrop, CONFIG.ids.style, CONFIG.ids.scriptQuery, 'comic-plugin-scrapers-comicextra']
+                [CONFIG.ids.backdrop, CONFIG.ids.style, CONFIG.ids.scriptQuery, 'comic-plugin-scrapers-comicextra', 'comic-plugin-scrapers-batcave']
                     .forEach(id => document.getElementById(id)?.remove());
                 document.querySelector(\`script[data-comic-plugin-id="\${CONFIG.scriptId}"]\`)?.remove();
                 console.log("[comic-plugin] Cleaned up.");

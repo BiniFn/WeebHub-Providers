@@ -40,14 +40,16 @@ function init() {
                     appLayout: ".UI-AppLayout__root"
                 },
                 assets: {
-                    css: "https://raw.githubusercontent.com/Pal-droid/Seanime-Providers/main/src/plugins/Light%20novel/styles.css",
-                    queries: "https://raw.githubusercontent.com/Pal-droid/Seanime-Providers/refs/heads/main/src/plugins/Light%20novel/anilist.js",
-                    scraperBuddy: "https://raw.githubusercontent.com/Pal-droid/Seanime-Providers/refs/heads/main/src/plugins/Light%20novel/providers/novelbuddy.js",
-                    scraperBin: "https://raw.githubusercontent.com/Pal-droid/Seanime-Providers/refs/heads/main/src/plugins/Light%20novel/providers/novelbin.js",
-                    scraperHall: "https://raw.githubusercontent.com/Pal-droid/Seanime-Providers/refs/heads/main/src/plugins/Light%20novel/providers/novelhall.js",
-                    scraperFire: "https://raw.githubusercontent.com/Pal-droid/Seanime-Providers/refs/heads/main/src/plugins/Light%20novel/providers/novelfire.js",
-                    scraperLocal: "https://raw.githubusercontent.com/Pal-droid/Seanime-Providers/refs/heads/main/src/plugins/Light%20novel/providers/local-epub.js",
+                    css: "https://raw.githubusercontent.com/BiniFn/WeebHub-Providers/main/src/plugins/Light%20novel/styles.css",
+                    queries: "https://raw.githubusercontent.com/BiniFn/WeebHub-Providers/refs/heads/main/src/plugins/Light%20novel/anilist.js",
+                    scraperBuddy: "https://raw.githubusercontent.com/BiniFn/WeebHub-Providers/refs/heads/main/src/plugins/Light%20novel/providers/novelbuddy.js",
+                    scraperBin: "https://raw.githubusercontent.com/BiniFn/WeebHub-Providers/refs/heads/main/src/plugins/Light%20novel/providers/novelbin.js",
+                    scraperHall: "https://raw.githubusercontent.com/BiniFn/WeebHub-Providers/refs/heads/main/src/plugins/Light%20novel/providers/novelhall.js",
+                    scraperFire: "https://raw.githubusercontent.com/BiniFn/WeebHub-Providers/refs/heads/main/src/plugins/Light%20novel/providers/novelfire.js",
+                    scraperReadLN: "https://raw.githubusercontent.com/BiniFn/WeebHub-Providers/refs/heads/main/src/plugins/Light%20novel/providers/readlightnovel.js",
+                    scraperLocal: "https://raw.githubusercontent.com/BiniFn/WeebHub-Providers/refs/heads/main/src/plugins/Light%20novel/providers/local-epub.js",
                     jszip: "https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js",
+                    pdfjs: "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"
                 },
                 genres: [
                     "Action", "Adventure", "Comedy", "Drama", "Ecchi", "Fantasy", "Hentai",
@@ -1162,8 +1164,8 @@ function init() {
                             
                             container.innerHTML = \`
                                 <div class="novel-plugin-file-picker">
-                                    <input type="file" id="novel-plugin-epub-input" accept=".epub" style="display: none;">
-                                    <button class="novel-plugin-button" id="novel-plugin-select-epub-btn">Select EPUB File</button>
+                                    <input type="file" id="novel-plugin-epub-input" accept=".epub,.pdf" style="display: none;">
+                                    <button class="novel-plugin-button" id="novel-plugin-select-epub-btn">Select EPUB / PDF</button>
                                     <div id="novel-plugin-epub-loading" class="novel-plugin-loader small" style="display: none;"></div>
                                     <div id="novel-plugin-epub-error" class="novel-plugin-error" style="display: none;"></div>
                                 </div>
@@ -1503,7 +1505,9 @@ function init() {
                         loadAsset(CONFIG.assets.scraperBin, CONFIG.ids.scriptScraperBin, 'script', 'NovelBin'),
                         loadAsset(CONFIG.assets.scraperHall, CONFIG.ids.scriptScraperHall, 'script', 'NovelHall'),
                         loadAsset(CONFIG.assets.scraperFire, CONFIG.ids.scriptScraperFire, 'script', 'NovelFire'),
-                        loadAsset(CONFIG.assets.scraperLocal, 'novel-plugin-scrapers-local', 'script', 'Local EPUB')
+                        loadAsset(CONFIG.assets.scraperReadLN, 'novel-plugin-scrapers-readln', 'script', 'ReadLightNovel'),
+                        loadAsset(CONFIG.assets.scraperLocal, 'novel-plugin-scrapers-local', 'script', 'Local EPUB'),
+                        loadAsset(CONFIG.assets.pdfjs, 'novel-plugin-pdfjs', 'script', 'PDFJS')
                     ]);
                     const backdrop = document.createElement("div");
                     backdrop.id = CONFIG.ids.backdrop;
@@ -1532,7 +1536,7 @@ function init() {
                 // REMOVE GLOBAL ESC
                 window.removeEventListener('keydown', handleGlobalEsc);
 
-                [CONFIG.ids.backdrop, CONFIG.ids.style, CONFIG.ids.scriptQuery, CONFIG.ids.scriptScraperBuddy, CONFIG.ids.scriptScraperBin, CONFIG.ids.scriptScraperHall, CONFIG.ids.scriptScraperFire]
+                [CONFIG.ids.backdrop, CONFIG.ids.style, CONFIG.ids.scriptQuery, CONFIG.ids.scriptScraperBuddy, CONFIG.ids.scriptScraperBin, CONFIG.ids.scriptScraperHall, CONFIG.ids.scriptScraperFire, 'novel-plugin-scrapers-readln', 'novel-plugin-scrapers-local', 'novel-plugin-pdfjs', 'novel-plugin-jszip']
                     .forEach(id => document.getElementById(id)?.remove());
                 document.querySelector(\`script[data-novel-plugin-id="\${CONFIG.scriptId}"]\`)?.remove();
                 console.log("[novel-plugin] Cleaned up.");
@@ -1547,7 +1551,7 @@ function init() {
         // ---------------------------------------------------------------------------
         const tray = ctx.newTray({
             tooltipText: "Novel Reader",
-            iconUrl: "https://raw.githubusercontent.com/Pal-droid/Seanime-Providers/refs/heads/main/public/ln.png",
+            iconUrl: "https://raw.githubusercontent.com/BiniFn/WeebHub-Providers/refs/heads/main/public/ln.png",
             withContent: false,
         });
         tray.onClick(async () => {

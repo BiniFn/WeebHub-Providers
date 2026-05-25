@@ -338,7 +338,33 @@
     async function getChapterContent(chapterUrl) {
         try {
             if (!currentEpubData) {
-                throw new Error('No EPUB loaded');
+                throw new Error('No EPUB/PDF loaded');
+            }
+            
+            if (currentEpubData.isPdf) {
+                const match = chapterUrl.match(/pdf_pages_(\d+)_(\d+)/);
+                if (!match) throw new Error("Invalid PDF chapter URL");
+                const startPage = parseInt(match[1]);
+                const endPage = parseInt(match[2]);
+                
+                let contentHtml = "";
+                for (let i = startPage; i <= endPage; i++) {
+                    try {
+                        const page = await currentEpubData.pdfDoc.getPage(i);
+                        const viewport = page.getViewport({ scale: 1.5 });
+                        const canvas = document.createElement('canvas');
+                        const ctx = canvas.getContext('2d');
+                        canvas.height = viewport.height;
+                        canvas.width = viewport.width;
+                        
+                        await page.render({ canvasContext: ctx, viewport: viewport }).promise;
+                        const dataUrl = canvas.toDataURL('image/jpeg', 0.8);
+                        contentHtml += `<img src="${dataUrl}" class="comic-plugin-page-image" style="width: 100%; height: auto; display: block; margin: 0 auto; margin-bottom: 8px;" />`;
+                    } catch (err) {
+                        console.error('[novel-plugin] Error rendering PDF page ' + i, err);
+                    }
+                }
+                return contentHtml;
             }
             
             return await getChapterContentFromEpub(currentEpubData, chapterUrl);
@@ -351,6 +377,47 @@
     // Public API for loading EPUB files
     window.LocalEpubAPI = {
         async loadEpub(file) {
+            if (file.name.toLowerCase().endsWith('.pdf')) {
+                try {
+                    const fileData = await file.arrayBuffer();
+                    // Load PDF using pdfjsLib
+                    const pdf = await window.pdfjsLib.getDocument({data: fileData}).promise;
+                    const numPages = pdf.numPages;
+                    
+                    const chapters = [];
+                    const pagesPerChapter = 15;
+                    for (let i = 0; i < numPages; i += pagesPerChapter) {
+                        const start = i + 1;
+                        const end = Math.min(i + pagesPerChapter, numPages);
+                        chapters.push({
+                            title: `Pages ${start}-${end}`,
+                            url: `pdf_pages_${start}_${end}`,
+                            index: chapters.length
+                        });
+                    }
+                    
+                    const id = 'local-pdf-' + Date.now();
+                    const pdfRecord = {
+                        id,
+                        title: file.name.replace('.pdf', ''),
+                        author: 'Local PDF',
+                        chapters,
+                        lastReadTime: Date.now()
+                    };
+                    
+                    currentEpubData = {
+                        ...pdfRecord,
+                        isPdf: true,
+                        pdfDoc: pdf
+                    };
+                    
+                    return { id, title: currentEpubData.title };
+                } catch (error) {
+                    console.error('[novel-plugin] Local PDF load error:', error);
+                    throw error;
+                }
+            }
+
             try {
                 const fileData = await file.arrayBuffer();
                 const epubData = await parseEpub(fileData);
