@@ -381,6 +381,9 @@
                 try {
                     const fileData = await file.arrayBuffer();
                     // Load PDF using pdfjsLib
+                    if (window.pdfjsLib && !window.pdfjsLib.GlobalWorkerOptions.workerSrc) {
+                        window.pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js";
+                    }
                     const pdf = await window.pdfjsLib.getDocument({data: fileData}).promise;
                     const numPages = pdf.numPages;
                     

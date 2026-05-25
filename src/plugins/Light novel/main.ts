@@ -1545,17 +1545,22 @@ function init() {
                     // Clear expired cache entries on startup
                     CacheService.clearExpired();
                     
+                    // Load dependencies first
                     await Promise.all([
                         loadAsset(CONFIG.assets.css, CONFIG.ids.style, 'style', 'CSS'),
                         loadAsset(CONFIG.assets.queries, CONFIG.ids.scriptQuery, 'script', 'Queries'),
                         loadAsset(CONFIG.assets.jszip, 'novel-plugin-jszip', 'script', 'JSZip'),
+                        loadAsset(CONFIG.assets.pdfjs, 'novel-plugin-pdfjs', 'script', 'PDFJS')
+                    ]);
+                    
+                    // Then load scrapers that might depend on them
+                    await Promise.all([
                         loadAsset(CONFIG.assets.scraperBuddy, CONFIG.ids.scriptScraperBuddy, 'script', 'NovelBuddy'),
                         loadAsset(CONFIG.assets.scraperBin, CONFIG.ids.scriptScraperBin, 'script', 'NovelBin'),
                         loadAsset(CONFIG.assets.scraperHall, CONFIG.ids.scriptScraperHall, 'script', 'NovelHall'),
                         loadAsset(CONFIG.assets.scraperFire, CONFIG.ids.scriptScraperFire, 'script', 'NovelFire'),
                         loadAsset(CONFIG.assets.scraperReadLN, 'novel-plugin-scrapers-readln', 'script', 'ReadLightNovel'),
-                        loadAsset(CONFIG.assets.scraperLocal, 'novel-plugin-scrapers-local', 'script', 'Local EPUB'),
-                        loadAsset(CONFIG.assets.pdfjs, 'novel-plugin-pdfjs', 'script', 'PDFJS')
+                        loadAsset(CONFIG.assets.scraperLocal, 'novel-plugin-scrapers-local', 'script', 'Local EPUB')
                     ]);
                     const backdrop = document.createElement("div");
                     backdrop.id = CONFIG.ids.backdrop;
