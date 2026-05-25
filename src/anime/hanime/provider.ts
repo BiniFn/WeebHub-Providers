@@ -409,38 +409,6 @@ class Provider {
     private readonly PLAY_URL = "https://cached.freeanimehentai.net/api/v8/hentai_videos";
 
     private async getSignature(id: string): Promise<{ sig: string, time: string }> {
-        try {
-            const { JSDOM } = await import('jsdom');
-            const fs = await import('fs');
-            const path = await import('path');
-            
-            const vendorPath = path.join(__dirname, 'vendor.js');
-            if (!fs.existsSync(vendorPath)) return { sig: '', time: '' };
-            
-            const vendorJs = fs.readFileSync(vendorPath, 'utf8');
-            
-            const dom = new JSDOM(`<!DOCTYPE html><html><head></head><body></body></html>`, {
-                runScripts: "dangerously",
-                url: `https://hanime.tv/videos/hentai/${id}`
-            });
-            
-            const { window } = dom;
-            (window as any).Module = {};
-            (window as any).fetch = async () => ({ ok: true, json: async () => ({}) });
-            
-            const script = window.document.createElement("script");
-            script.textContent = vendorJs;
-            window.document.head.appendChild(script);
-            
-            await (window as any).fetch(`${this.PLAY_URL}/${id}/play`);
-            
-            for (let i = 0; i < 30; i++) {
-                if ((window as any).ssignature && (window as any).stime) {
-                    return { sig: (window as any).ssignature, time: String((window as any).stime) };
-                }
-                await new Promise(r => setTimeout(r, 100));
-            }
-        } catch (e) { console.log('sig err', e); }
         return { sig: '', time: '' };
     }
 
