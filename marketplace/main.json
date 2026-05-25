@@ -1,5 +1,17 @@
 [
   {
+    "id": "comics-reader",
+    "name": "Comics Reader",
+    "description": "A simple plugin for reading Comics inside WeebHub.",
+    "manifestURI": "https://raw.githubusercontent.com/BiniFn/WeebHub-Providers/main/src/plugins/Comics/manifest.json",
+    "author": "WeebHub",
+    "type": "plugin",
+    "language": "typescript",
+    "lang": "en",
+    "icon": "https://raw.githubusercontent.com/BiniFn/WeebHub-Providers/refs/heads/main/public/manga.png",
+    "website": ""
+  },
+  {
     "id": "mangabuddy",
     "name": "MangaBuddy",
     "description": "MangaBuddy is a manga provider for WeebHub",

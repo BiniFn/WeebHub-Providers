@@ -1,0 +1,27 @@
+{
+  "id": "comics-reader",
+  "name": "Comics Reader",
+  "version": "1.0.0",
+  "manifestURI": "https://raw.githubusercontent.com/BiniFn/WeebHub-Providers/main/src/plugins/Comics/manifest.json",
+  "description": "A simple plugin for reading Comics inside WeebHub.",
+  "author": "WeebHub",
+  "icon": "https://raw.githubusercontent.com/BiniFn/WeebHub-Providers/refs/heads/main/public/manga.png",
+  "language": "typescript",
+  "type": "plugin",
+  "payloadURI": "https://raw.githubusercontent.com/BiniFn/WeebHub-Providers/main/src/plugins/Comics/main.ts",
+  "lang": "EN",
+  "plugin": {
+    "version": "1",
+    "permissions": {
+      "scopes": [],
+      "allow": {
+        "unsafeFlags": [
+          {
+            "flag": "dom-script-manipulation",
+            "reason": "Needed for injecting scripts into the reader view"
+          }
+        ]
+      }
+    }
+  }
+}

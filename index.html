@@ -423,6 +423,15 @@
 
         const items = normalizePluginData(data);
 
+        // Sort items so WeebHub authored items appear first
+        items.sort((a, b) => {
+            const aIsWeebHub = a.author === "WeebHub";
+            const bIsWeebHub = b.author === "WeebHub";
+            if (aIsWeebHub && !bIsWeebHub) return -1;
+            if (!aIsWeebHub && bIsWeebHub) return 1;
+            return 0;
+        });
+
         // If no items
         if (!items.length) {
              categories.forEach(id => {
@@ -453,7 +462,11 @@
           const btns = node.querySelector(".buttons-container");
 
           img.src = item.icon || placeholderDataUrl;
-          title.textContent = item.name || item.id || "Unnamed";
+          if (item.author === "WeebHub") {
+              title.innerHTML = `${item.name || item.id || "Unnamed"} <span class="bg-blue-500/20 text-blue-400 text-[10px] px-1.5 py-0.5 rounded ml-1 align-middle border border-blue-500/30">Official</span>`;
+          } else {
+              title.textContent = item.name || item.id || "Unnamed";
+          }
           authorEl.textContent = item.author || "Unknown";
           desc.textContent = item.description || "No description available.";
 
