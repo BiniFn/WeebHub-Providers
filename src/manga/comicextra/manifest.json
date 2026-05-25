@@ -1,0 +1,11 @@
+{
+  "id": "comicextra",
+  "name": "ComicExtra",
+  "version": "1.0.0",
+  "type": "manga-provider",
+  "manifestVersion": 2,
+  "author": "WeebHub",
+  "description": "Provider for ComicExtra. Read western comics online.",
+  "language": "EN",
+  "payload": "provider.js"
+}

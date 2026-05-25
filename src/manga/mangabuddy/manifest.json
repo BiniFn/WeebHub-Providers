@@ -1,0 +1,13 @@
+{
+  "id": "mangabuddy",
+  "name": "MangaBuddy",
+  "description": "MangaBuddy is a manga provider for Seanime",
+  "manifestURI": "https://raw.githubusercontent.com/Pal-droid/Seanime-Providers/main/src/manga/mangabuddy/manifest.json",
+  "version": "2.2.2",
+  "author": "Pal",
+  "icon": "https://raw.githubusercontent.com/pal-droid/seanime-providers/refs/heads/main/public/mangabuddy.png",
+  "type": "manga-provider",
+  "language": "javascript",
+  "lang": "en",
+  "payloadURI": "https://raw.githubusercontent.com/Pal-droid/Seanime-Providers/main/src/manga/mangabuddy/provider.js"
+}
