@@ -29,16 +29,23 @@ function init() {
 
     // 2. Logo Handling Logic
     function updateLogos() {
-        const logos = document.querySelectorAll('img[src*="logo.png"], img[src*="seanime-logo.png"], img[alt="Loading..."], img[alt="logo"]');
+        const logos = document.querySelectorAll('img[alt="Loading..."], img[alt="logo"], img[class*="logo"]');
         
         logos.forEach(img => {
             // Skip tray icons
             if (img.hasAttribute('data-plugin-tray-icon-image')) return;
 
+            // Save original source if not already saved and if it's not the xmas logo
+            if (!img.hasAttribute('data-original-src') && !img.src.includes('WeebHub-xmas.jpg') && !img.src.includes('seanime-xmas.png')) {
+                img.setAttribute('data-original-src', img.src);
+            }
+
             if (snowEnabled) {
                 if (!img.src.includes('WeebHub-xmas.jpg')) img.src = XMAS_LOGO;
             } else {
-                if (img.src.includes('WeebHub-xmas.jpg') || img.src.includes('seanime-xmas.png')) img.src = DEFAULT_LOGO;
+                if (img.hasAttribute('data-original-src') && (img.src.includes('WeebHub-xmas.jpg') || img.src.includes('seanime-xmas.png'))) {
+                    img.src = img.getAttribute('data-original-src');
+                }
             }
         });
     }
@@ -70,7 +77,7 @@ function init() {
     const statusSpan = document.createElement('div');
     statusSpan.id = 'snow-toggle-btn';
     statusSpan.style.cssText = 'position: fixed; bottom: 25px; right: 20px; background: rgba(0, 0, 0, 0.8); color: ' + (snowEnabled ? 'white' : '#888') + '; padding: 12px 20px; border-radius: 30px; font-size: 14px; z-index: 10001; backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); cursor: pointer; user-select: none; touch-action: manipulation;';
-    statusSpan.innerHTML = '<span>❄️</span> <span id="snow-text">' + (snowEnabled ? 'Snow: ON' : 'Snow: OFF') + '</span>';
+    statusSpan.innerHTML = '<span>❄️</span> <span id="snow-text">' + (snowEnabled ? 'Turn Snow OFF' : 'Turn Snow ON') + '</span>';
     document.body.appendChild(statusSpan);
 
     function toggle(e) {
@@ -83,7 +90,7 @@ function init() {
         localStorage.setItem('seanime-snow-enabled', snowEnabled);
         
         const txt = document.getElementById('snow-text');
-        if (txt) txt.textContent = snowEnabled ? 'Snow: ON' : 'Snow: OFF';
+        if (txt) txt.textContent = snowEnabled ? 'Turn Snow OFF' : 'Turn Snow ON';
         statusSpan.style.color = snowEnabled ? 'white' : '#888';
         
         if (snowEnabled) {
