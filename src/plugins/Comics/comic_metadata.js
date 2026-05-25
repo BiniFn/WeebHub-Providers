@@ -6,13 +6,7 @@
 
     const BATCAVE_URL = "https://batcave.biz";
 
-    function proxyUrl(url) {
-        let port = "43211";
-        if (window.location.port && window.location.port.length === 5) {
-            port = window.location.port;
-        }
-        return `http://localhost:${port}/api/v1/proxy?url=${encodeURIComponent(url)}`;
-    }
+    // Removed proxyUrl because extension contexts often don't need it and proxies trigger Cloudflare
 
     /**
      * Searches for comics
@@ -20,7 +14,7 @@
      * @returns {Promise<Array>}
      */
     async function searchComics(query) {
-        const url = proxyUrl(`${BATCAVE_URL}/search?q=${encodeURIComponent(query)}`);
+        const url = `${BATCAVE_URL}/search?q=${encodeURIComponent(query)}`;
         try {
             const res = await fetch(url, { headers: { 'User-Agent': 'Mozilla/5.0' } });
             const html = await res.text();
@@ -93,7 +87,7 @@
      */
     async function getComicDetails(id) {
         // id is the full URL in this context
-        const url = proxyUrl(id);
+        const url = id;
         try {
             const res = await fetch(url);
             const html = await res.text();

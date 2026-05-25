@@ -2,13 +2,7 @@
 
     const BATCAVE_URL = "https://batcave.biz";
 
-    function proxyUrl(url) {
-        let port = "43211";
-        if (window.location.port && window.location.port.length === 5) {
-            port = window.location.port;
-        }
-        return `http://localhost:${port}/api/v1/proxy?url=${encodeURIComponent(url)}`;
-    }
+    // Removed proxyUrl because it triggers Cloudflare blocking when run from a Node.js proxy instead of the browser context.
 
     function getLevenshteinDistance(a, b) {
         if (a.length === 0) return b.length;
@@ -39,7 +33,7 @@
     }
 
     async function manualSearch(query) {
-        const url = proxyUrl(`${BATCAVE_URL}/search?q=${encodeURIComponent(query)}`);
+        const url = `${BATCAVE_URL}/search?q=${encodeURIComponent(query)}`;
         try {
             const res = await fetch(url, { headers: { 'User-Agent': 'Mozilla/5.0' } });
             const html = await res.text();
@@ -78,7 +72,7 @@
     }
 
     async function getChapters(mangaUrl) {
-        const url = proxyUrl(mangaUrl);
+        const url = mangaUrl;
         try {
             const res = await fetch(url);
             const html = await res.text();
@@ -106,7 +100,7 @@
     }
 
     async function getChapterContent(chapterUrl) {
-        const url = proxyUrl(chapterUrl);
+        const url = chapterUrl;
         try {
             const res = await fetch(url);
             const html = await res.text();
