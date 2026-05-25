@@ -1121,6 +1121,54 @@ function init() {
                 manBtn.textContent = 'Manual Search';
                 manBtn.onclick = () => { State.page = "manual-match"; renderUI(); };
                 btnContainer.appendChild(manBtn);
+
+                // Add explicit button to upload local files
+                const uploadBtn = document.createElement('button');
+                uploadBtn.className = 'novel-plugin-button secondary';
+                uploadBtn.textContent = 'Upload EPUB / PDF';
+                uploadBtn.style.marginTop = '0.5rem';
+                
+                const fileInput = document.createElement('input');
+                fileInput.type = 'file';
+                fileInput.accept = '.epub,.pdf';
+                fileInput.style.display = 'none';
+                
+                uploadBtn.onclick = () => fileInput.click();
+                
+                fileInput.onchange = async (e) => {
+                    const file = e.target.files[0];
+                    if (!file) return;
+                    
+                    const originalHTML = uploadBtn.innerHTML;
+                    uploadBtn.innerHTML = '<div class="novel-plugin-loader small" style="margin:0; width:16px; height:16px; display:inline-block; vertical-align:middle;"></div> Loading...';
+                    uploadBtn.disabled = true;
+                    
+                    try {
+                        if (!window.LocalEpubAPI) throw new Error("Local reader API not loaded");
+                        const result = await window.LocalEpubAPI.loadEpub(file);
+                        
+                        State.currentSourceId = 'local-epub';
+                        const source = State.sourceRegistry.get('local-epub');
+                        if (source) {
+                            State.currentChapters = await source.getChapters(result.id);
+                            State.matches.set('local-epub', {
+                                match: { title: result.title, url: result.id, image: '' },
+                                similarity: 1,
+                                chapters: State.currentChapters,
+                                sourceId: 'local-epub'
+                            });
+                            autoMatchEl.innerHTML = '';
+                            renderChapterButtons(autoMatchEl);
+                        }
+                    } catch (err) {
+                        console.error(err);
+                        uploadBtn.innerHTML = 'Error loading file';
+                        setTimeout(() => { uploadBtn.innerHTML = originalHTML; uploadBtn.disabled = false; }, 2000);
+                    }
+                };
+                
+                btnContainer.appendChild(fileInput);
+                btnContainer.appendChild(uploadBtn);
             }
 
             function renderChapterButtons(container) {
