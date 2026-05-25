@@ -41,7 +41,7 @@ function init() {
                 },
                 assets: {
                     css: "https://raw.githubusercontent.com/BiniFn/WeebHub-Providers/refs/heads/main/src/plugins/Comics/styles.css",
-                    queries: "https://raw.githubusercontent.com/BiniFn/WeebHub-Providers/refs/heads/main/src/plugins/Comics/anilist.js",
+                    queries: "https://raw.githubusercontent.com/BiniFn/WeebHub-Providers/refs/heads/main/src/plugins/Comics/comic_metadata.js",
                     scraperExtra: "https://raw.githubusercontent.com/BiniFn/WeebHub-Providers/refs/heads/main/src/plugins/Comics/providers/comicextra.js",
                     scraperBatcave: "https://raw.githubusercontent.com/BiniFn/WeebHub-Providers/refs/heads/main/src/plugins/Comics/providers/batcave.js"
                 },
@@ -160,7 +160,7 @@ function init() {
             };
 
             // Wrapped Anilist Queries with Caching
-            const CachedAnilistQueries = {
+            const CachedComicMetadataQueries = {
                 getTrendingLightComics: async () => {
                     const cacheKey = CacheService.getCacheKey('trending', {});
                     const cached = CacheService.get(cacheKey);
@@ -170,7 +170,7 @@ function init() {
                     }
                     
                     console.log("[comic-plugin] Fetching fresh trending comics");
-                    const data = await AnilistQueries.getTrendingLightComics();
+                    const data = await ComicMetadataQueries.getTrendingLightComics();
                     if (data) {
                         CacheService.set(cacheKey, data, 1800000); // 30 minutes
                     }
@@ -186,7 +186,7 @@ function init() {
                     }
                     
                     console.log("[comic-plugin] Fetching fresh search results");
-                    const data = await AnilistQueries.searchAnilistLightComics(query, sort, genre);
+                    const data = await ComicMetadataQueries.searchAnilistLightComics(query, sort, genre);
                     if (data) {
                         CacheService.set(cacheKey, data, 900000); // 15 minutes
                     }
@@ -202,7 +202,7 @@ function init() {
                     }
                     
                     console.log(\`[comic-plugin] Fetching fresh details for comic \${id}\`);
-                    const data = await AnilistQueries.getAnilistLightComicDetails(id);
+                    const data = await ComicMetadataQueries.getAnilistLightComicDetails(id);
                     if (data) {
                         CacheService.set(cacheKey, data, 3600000); // 1 hour
                     }
@@ -554,7 +554,7 @@ function init() {
                     // Fetch details for each comic in library
                     const promises = library.map(async (libItem) => {
                         try {
-                            const media = await CachedAnilistQueries.getAnilistLightComicDetails(libItem.anilistId);
+                            const media = await CachedComicMetadataQueries.getAnilistLightComicDetails(libItem.anilistId);
                             if (media) {
                                 return {
                                     ...libItem,
@@ -593,7 +593,7 @@ function init() {
                 
                 try {
                     // Get comic details
-                    const media = await CachedAnilistQueries.getAnilistLightComicDetails(anilistId);
+                    const media = await CachedComicMetadataQueries.getAnilistLightComicDetails(anilistId);
                     if (!media) {
                         throw new Error("Failed to load comic details");
                     }
@@ -770,7 +770,7 @@ function init() {
             // --- Page: Discover ---
             async function renderDiscoverPage(wrapper) {
                 wrapper.innerHTML = \`<div class="comic-plugin-loader"></div>\`;
-                const media = await CachedAnilistQueries.getTrendingLightComics();
+                const media = await CachedComicMetadataQueries.getTrendingLightComics();
                 wrapper.innerHTML = "";
 
                 if (!media?.length) {
@@ -841,9 +841,9 @@ function init() {
                     // TASK 4: Fix infinite loading bug when no query is provided
                     if (prefill || (!query.trim() && !genre)) {
                         // Show trending when no query and no genre
-                        media = await CachedAnilistQueries.getTrendingLightComics();
+                        media = await CachedComicMetadataQueries.getTrendingLightComics();
                     } else {
-                        media = await CachedAnilistQueries.searchAnilistLightComics(query, sort, genre);
+                        media = await CachedComicMetadataQueries.searchAnilistLightComics(query, sort, genre);
                     }
 
                     elements.results.innerHTML = (!media?.length) ?
@@ -988,7 +988,7 @@ function init() {
             async function renderDetailsPage(wrapper) {
                 if (!State.currentComic?.id) return handleComicSelection(null);
                 wrapper.innerHTML = \`<div class="comic-plugin-loader"></div>\`;
-                const media = await CachedAnilistQueries.getAnilistLightComicDetails(State.currentComic.id);
+                const media = await CachedComicMetadataQueries.getAnilistLightComicDetails(State.currentComic.id);
                 wrapper.innerHTML = "";
 
                 if (!media) { wrapper.innerHTML = "<p>Error loading details.</p>"; return; }
